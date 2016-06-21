@@ -1,0 +1,10 @@
+Source: leiningen
+Maintainer: Vincent Bernat <bernat@debian.org>
+Build-Depends: debhelper (>= 9),
+               wget, ca-certificates, lsb-release
+
+Package: leiningen
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends},
+         default-jre-headless (>= 1.8) | java7-runtime-headless | java8-runtime-headless
+Description: build and automation tool for Clojure projects

@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+DISTRIBUTION = $(shell lsb_release -sr)
+VERSION = 2.6.1
+PACKAGEVERSION = $(VERSION)-0~$(DISTRIBUTION)0+exo1
+JAR = leiningen-$(VERSION)-standalone.zip
+URL1 = https://github.com/technomancy/leiningen/releases/download/$(VERSION)/$(JAR)
+URL2 = https://github.com/technomancy/leiningen/archive/$(VERSION).tar.gz
+
+%:
+	dh $@ --with systemd
+
+override_dh_auto_clean:
+	wget -N --progress=dot:mega $(URL1)
+	wget -N --progress=dot:mega $(URL2)
+
+override_dh_auto_install:
+	tar --strip-components=1 -xf $(VERSION).tar.gz
+	mkdir -p debian/leiningen/usr/share/java debian/leiningen/usr/bin
+	cp $(JAR) debian/leiningen/usr/share/java/$(JAR:%.zip=%.jar)
+	cp bin/lein-pkg debian/leiningen/usr/bin/lein
+
+override_dh_gencontrol:
+	dh_gencontrol -- -v$(PACKAGEVERSION)
