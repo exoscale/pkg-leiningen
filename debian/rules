@@ -11,8 +11,8 @@ URL2 = https://github.com/technomancy/leiningen/archive/$(VERSION).tar.gz
 	dh $@
 
 override_dh_auto_clean:
-	wget -N --progress=dot:mega $(URL1)
-	wget -N --progress=dot:mega $(URL2)
+	wget -nc --progress=dot:mega $(URL1)
+	wget -nc --progress=dot:mega $(URL2)
 
 override_dh_auto_install:
 	tar --strip-components=1 -xf $(VERSION).tar.gz
