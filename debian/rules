@@ -22,3 +22,6 @@ override_dh_auto_install:
 
 override_dh_gencontrol:
 	dh_gencontrol -- -v$(PACKAGEVERSION)
+
+# Can trigger a bug: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=877418#10
+override_dh_strip_nondeterminism:
